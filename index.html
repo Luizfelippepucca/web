@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela de Consumo api</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body onload="carregarClientes()">
+    <div class="container">
+        <h2>Clientes</h2>            
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Idade</th>
+              <th>Rg</th>
+            </tr>
+          </thead>
+          <tbody id="clientes">
+           
+            
+          </tbody>
+        </table>
+      </div>
+      
+
+      <script>
+        function getCliente(){
+          var url ="http://demo3783148.mockable.io/clientes";
+          var httpReq = new XMLHttpRequest();
+          httpReq.open("GET",url, false);
+          httpReq.send(null);
+          var obj = JSON.parse(httpReq.responseText);
+          //console.log(obj);
+          return obj;
+        }
+
+        function carregarClientes(){
+              var cli = getCliente();
+              console.log(cli);
+              //each -laço de repetição jquery
+              $.each(cli, function(index,item){
+                var linha = "<tr>";
+                linha += "<td>" + item.nome + "</td>";
+                linha += "<td>" + item.idade + "</td>";
+                linha += "<td>" + item.rg + "</td>";
+
+                linha += "</tr>";
+                $("#clientes").append(linha);
+
+              });
+          }
+      </script>
+    </body>
+</html>
